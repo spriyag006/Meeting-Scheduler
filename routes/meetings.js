@@ -3,6 +3,12 @@ const Meeting = require("../models/Meeting");
 
 const router = express.Router();
 
+
+// =====================================================
+// CREATE MEETING
+// POST /meetings
+// =====================================================
+
 router.post("/", async (req, res) => {
 
     try {
@@ -15,6 +21,9 @@ router.post("/", async (req, res) => {
             location,
             description
         } = req.body;
+
+
+        // Validate required fields
 
         if (
             !userId ||
@@ -32,37 +41,48 @@ router.post("/", async (req, res) => {
 
         }
 
+
+        // Create meeting
+
         const meeting = new Meeting({
 
-            userId,
+            userId: userId,
 
-            title,
+            title: title,
 
-            meetingDate,
+            meetingDate: meetingDate,
 
-            meetingTime,
+            meetingTime: meetingTime,
 
-            location,
+            location: location || "",
 
-            description
+            description: description || ""
 
         });
 
+
+        // Save to MongoDB
+
         await meeting.save();
 
+
+        // Send response
 
         res.status(201).json({
 
             message: "Meeting created successfully",
 
-            meeting
+            meeting: meeting
 
         });
 
+    }
+    catch (error) {
 
-    } catch (error) {
-
-        console.error(error);
+        console.error(
+            "CREATE MEETING ERROR:",
+            error
+        );
 
         res.status(500).json({
 
@@ -75,28 +95,52 @@ router.post("/", async (req, res) => {
 });
 
 
+
+// =====================================================
+// GET USER'S MEETINGS
+// GET /meetings/:userId
+// =====================================================
 
 router.get("/:userId", async (req, res) => {
 
     try {
 
-        const meetings = await Meeting.find({
-
-            userId: req.params.userId
-
-        }).sort({
-
-            meetingDate: 1
-
-        });
+        const userId = req.params.userId;
 
 
-        res.json(meetings);
+        console.log(
+            "Loading meetings for user:",
+            userId
+        );
 
 
-    } catch (error) {
+        const meetings =
+            await Meeting.find({
 
-        console.error(error);
+                userId: userId
+
+            }).sort({
+
+                meetingDate: 1
+
+            });
+
+
+        console.log(
+            "Meetings found:",
+            meetings.length
+        );
+
+
+        res.status(200).json(meetings);
+
+    }
+    catch (error) {
+
+        console.error(
+            "GET MEETINGS ERROR:",
+            error
+        );
 
         res.status(500).json({
 
@@ -108,24 +152,93 @@ router.get("/:userId", async (req, res) => {
 
 });
 
+
+
+// =====================================================
+// UPDATE MEETING
+// PUT /meetings/:id
+// =====================================================
+
 router.put("/:id", async (req, res) => {
 
     try {
 
-                const updatedMeeting =
+        const meetingId =
+            req.params.id;
+
+
+        const {
+            title,
+            meetingDate,
+            meetingTime,
+            location,
+            description
+        } = req.body;
+
+
+        console.log(
+            "Updating meeting:",
+            meetingId
+        );
+
+
+        console.log(
+            "Update data:",
+            req.body
+        );
+
+
+        // Validate required fields
+
+        if (
+            !title ||
+            !meetingDate ||
+            !meetingTime
+        ) {
+
+            return res.status(400).json({
+
+                message:
+                    "Title, date and time are required"
+
+            });
+
+        }
+
+
+        // Update meeting
+
+        const updatedMeeting =
             await Meeting.findByIdAndUpdate(
 
-                req.params.id,
-
-                req.body,
+                meetingId,
 
                 {
-                    returnDocument: 'after',
+
+                    title: title,
+
+                    meetingDate: meetingDate,
+
+                    meetingTime: meetingTime,
+
+                    location: location || "",
+
+                    description: description || ""
+
+                },
+
+                {
+
+                    new: true,
+
                     runValidators: true
+
                 }
 
             );
 
+
+        // Meeting not found
 
         if (!updatedMeeting) {
 
@@ -138,22 +251,36 @@ router.put("/:id", async (req, res) => {
         }
 
 
-        res.json({
+        console.log(
+            "Updated meeting:",
+            updatedMeeting
+        );
 
-            message: "Meeting updated successfully",
 
-            meeting: updatedMeeting
+        // Send updated meeting
+
+        res.status(200).json({
+
+            message:
+                "Meeting updated successfully",
+
+            meeting:
+                updatedMeeting
 
         });
 
+    }
+    catch (error) {
 
-    } catch (error) {
-
-        console.error(error);
+        console.error(
+            "UPDATE MEETING ERROR:",
+            error
+        );
 
         res.status(500).json({
 
-            message: "Server error"
+            message:
+                "Server error while updating meeting"
 
         });
 
@@ -162,15 +289,35 @@ router.put("/:id", async (req, res) => {
 });
 
 
+
+// =====================================================
+// DELETE MEETING
+// DELETE /meetings/:id
+// =====================================================
+
 router.delete("/:id", async (req, res) => {
 
     try {
 
+        const meetingId =
+            req.params.id;
+
+
+        console.log(
+            "Deleting meeting:",
+            meetingId
+        );
+
+
+        // Delete from MongoDB
+
         const deletedMeeting =
             await Meeting.findByIdAndDelete(
-                req.params.id
+                meetingId
             );
 
+
+        // Meeting not found
 
         if (!deletedMeeting) {
 
@@ -183,19 +330,36 @@ router.delete("/:id", async (req, res) => {
         }
 
 
-       res.status(200).json({
-            message: "Meeting deleted successfully"
+        console.log(
+            "Deleted meeting:",
+            deletedMeeting
+        );
+
+
+        // Success response
+
+        res.status(200).json({
+
+            message:
+                "Meeting deleted successfully",
+
+            meeting:
+                deletedMeeting
 
         });
 
+    }
+    catch (error) {
 
-    } catch (error) {
-
-        console.error(error);
+        console.error(
+            "DELETE MEETING ERROR:",
+            error
+        );
 
         res.status(500).json({
 
-            message: "Server error"
+            message:
+                "Server error while deleting meeting"
 
         });
 
@@ -203,5 +367,10 @@ router.delete("/:id", async (req, res) => {
 
 });
 
+
+
+// =====================================================
+// EXPORT ROUTER
+// =====================================================
 
 module.exports = router;
