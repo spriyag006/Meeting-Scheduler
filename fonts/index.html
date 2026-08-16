@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <!-- Basic HTML Settings -->
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Meeting Scheduler</title>
+    <style>
+        /* ========================================
+   GENERAL PAGE
+======================================== */
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    color: #212529;
+}
+
+
+/* ========================================
+   NAVBAR
+======================================== */
+
+.navbar {
+    padding: 15px 0;
+}
+
+.navbar-brand {
+    font-size: 24px;
+    letter-spacing: 0.5px;
+}
+
+.navbar-brand:hover {
+    color: #0d6efd !important;
+}
+
+
+/* ========================================
+   NAVIGATION BUTTONS
+======================================== */
+
+.navbar .btn {
+    padding: 8px 20px;
+    border-radius: 8px;
+    font-weight: 500;
+}
+
+.navbar .btn-primary {
+    background-color: #0d6efd;
+    border: none;
+}
+
+.navbar .btn-primary:hover {
+    background-color: #0b5ed7;
+}
+
+.navbar .btn-outline-light:hover {
+    color: #212529;
+}
+
+
+/* ========================================
+   HERO SECTION
+======================================== */
+
+main section:first-child {
+    min-height: 500px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: linear-gradient(
+        135deg,
+        #eef4ff,
+        #ffffff
+    );
+}
+
+
+/* ========================================
+   HERO HEADING
+======================================== */
+
+main section:first-child h1 {
+    color: #111827;
+    font-size: 48px;
+    line-height: 1.2;
+}
+
+
+/* ========================================
+   HERO DESCRIPTION
+======================================== */
+
+main section:first-child p {
+    max-width: 650px;
+    margin-left: auto;
+    margin-right: auto;
+
+    font-size: 20px;
+    line-height: 1.6;
+}
+
+
+/* ========================================
+   HERO BUTTONS
+======================================== */
+
+main section:first-child .btn {
+    padding: 12px 28px;
+    border-radius: 8px;
+    font-weight: 600;
+
+    transition: 0.3s;
+}
+
+main section:first-child .btn-primary:hover {
+    transform: translateY(-2px);
+}
+
+
+/* ========================================
+   FEATURES SECTION
+======================================== */
+
+main section:nth-child(2) {
+    padding-top: 70px;
+    padding-bottom: 70px;
+}
+
+
+/* ========================================
+   FEATURES HEADING
+======================================== */
+
+main section:nth-child(2) h2 {
+    font-size: 34px;
+    font-weight: 700;
+    color: #111827;
+}
+
+
+/* ========================================
+   FEATURE CARDS
+======================================== */
+
+.card {
+    border: none;
+    border-radius: 15px;
+
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-8px);
+}
+
+.card-body {
+    padding: 30px;
+}
+
+
+/* ========================================
+   FEATURE CARD TITLE
+======================================== */
+
+.card-title {
+    font-size: 22px;
+    font-weight: 600;
+    color: #111827;
+}
+
+
+/* ========================================
+   FEATURE CARD DESCRIPTION
+======================================== */
+
+.card-text {
+    line-height: 1.6;
+    font-size: 16px;
+}
+
+
+/* ========================================
+   FOOTER
+======================================== */
+
+footer {
+    margin-top: 30px;
+}
+
+footer p {
+    font-size: 14px;
+}
+
+
+/* ========================================
+   MOBILE RESPONSIVE DESIGN
+======================================== */
+
+@media (max-width: 768px) {
+
+    main section:first-child {
+        min-height: 450px;
+    }
+
+    main section:first-child h1 {
+        font-size: 36px;
+    }
+
+    main section:first-child p {
+        font-size: 18px;
+    }
+
+    main section:nth-child(2) h2 {
+        font-size: 28px;
+    }
+
+}
+
+
+/* ========================================
+   SMALL MOBILE SCREEN
+======================================== */
+
+@media (max-width: 576px) {
+
+    .navbar-brand {
+        font-size: 20px;
+    }
+
+    main section:first-child h1 {
+        font-size: 30px;
+    }
+
+    main section:first-child p {
+        font-size: 16px;
+    }
+
+    main section:first-child .btn {
+        display: block;
+        width: 100%;
+        margin-bottom: 12px;
+    }
+
+    .card-body {
+        padding: 25px;
+    }
+
+}
+    </style>
+
+
+    <!-- Bootstrap CSS -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================
+         NAVIGATION BAR
+    ========================== -->
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+
+        <div class="container">
+
+            <!-- Website Name -->
+
+            <a class="navbar-brand fw-bold"
+               href="index.html">
+
+                Meeting Scheduler
+
+            </a>
+
+
+            <!-- Mobile Menu Button -->
+
+            <button
+                class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarMenu">
+
+                <span class="navbar-toggler-icon"></span>
+
+            </button>
+
+
+            <!-- Navigation Links -->
+
+            <div class="collapse navbar-collapse"
+                 id="navbarMenu">
+
+                <div class="ms-auto">
+
+                    <a href="login.html"
+                       class="btn btn-outline-light me-2">
+
+                        Login
+
+                    </a>
+
+
+                    <a href="register.html"
+                       class="btn btn-primary">
+
+                        Register
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </nav>
+
+
+
+    <!-- =========================
+         HERO SECTION
+    ========================== -->
+
+    <main>
+
+        <section class="container text-center py-5">
+
+            <div class="py-5">
+
+                <h1 class="display-4 fw-bold">
+
+                    Cloud-Based Meeting Scheduler
+
+                </h1>
+
+
+                <p class="lead text-muted mt-3">
+
+                    Schedule, manage, and organize
+                    your meetings easily.
+
+                </p>
+
+
+                <div class="mt-4">
+
+                    <a href="register.html"
+                       class="btn btn-primary btn-lg me-2">
+
+                        Get Started
+
+                    </a>
+
+
+                    <a href="login.html"
+                       class="btn btn-outline-dark btn-lg">
+
+                        Login
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =========================
+             FEATURES SECTION
+        ========================== -->
+
+        <section class="container py-5">
+
+            <h2 class="text-center mb-5">
+
+                Why Use Meeting Scheduler?
+
+            </h2>
+
+
+            <div class="row g-4">
+
+
+                <!-- Feature 1 -->
+
+                <div class="col-md-4">
+
+                    <div class="card h-100 shadow-sm">
+
+                        <div class="card-body text-center">
+
+                            <h3 class="card-title">
+
+                                Schedule Meetings
+
+                            </h3>
+
+                            <p class="card-text text-muted">
+
+                                Create meetings with
+                                title, date, time,
+                                and description.
+
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- Feature 2 -->
+
+                <div class="col-md-4">
+
+                    <div class="card h-100 shadow-sm">
+
+                        <div class="card-body text-center">
+
+                            <h3 class="card-title">
+
+                                Manage Meetings
+
+                            </h3>
+
+                            <p class="card-text text-muted">
+
+                                Edit, view, and delete
+                                your scheduled meetings.
+
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- Feature 3 -->
+
+                <div class="col-md-4">
+
+                    <div class="card h-100 shadow-sm">
+
+                        <div class="card-body text-center">
+
+                            <h3 class="card-title">
+
+                                Cloud Based
+
+                            </h3>
+
+                            <p class="card-text text-muted">
+
+                                Access your meeting
+                                scheduler through the
+                                cloud.
+
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+
+    <!-- =========================
+         FOOTER
+    ========================== -->
+
+    <footer class="bg-dark text-white text-center py-3">
+
+        <p class="mb-0">
+
+            © 2026 Meeting Scheduler
+
+        </p>
+
+    </footer>
+
+
+
+    <!-- =========================
+         BOOTSTRAP JAVASCRIPT
+    ========================== -->
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+    </script>
+
+
+    <!-- CUSTOM JAVASCRIPT -->
+
+    <script>
+        // ========================================
+// MEETING SCHEDULER - HOME PAGE JAVASCRIPT
+// ========================================
+
+
+// Run JavaScript after the page is loaded
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    console.log("Meeting Scheduler loaded successfully.");
+
+});
+
+
+// ========================================
+// GET STARTED BUTTON
+// ========================================
+
+const getStartedButton =
+    document.querySelector('a[href="register.html"]');
+
+if (getStartedButton) {
+
+    getStartedButton.addEventListener("click", function () {
+
+        console.log("User selected Get Started.");
+
+    });
+
+}
+
+
+// ========================================
+// LOGIN BUTTON
+// ========================================
+
+const loginButtons =
+    document.querySelectorAll('a[href="login.html"]');
+
+loginButtons.forEach(function (button) {
+
+    button.addEventListener("click", function () {
+
+        console.log("User selected Login.");
+
+    });
+
+});
+
+
+// ========================================
+// REGISTER BUTTON
+// ========================================
+
+const registerButtons =
+    document.querySelectorAll('a[href="register.html"]');
+
+registerButtons.forEach(function (button) {
+
+    button.addEventListener("click", function () {
+
+        console.log("User selected Register.");
+
+    });
+
+});
+
+
+// ========================================
+// CURRENT YEAR IN FOOTER
+// ========================================
+
+const footerText =
+    document.querySelector("footer p");
+
+if (footerText) {
+
+    const currentYear = new Date().getFullYear();
+
+    footerText.innerHTML =
+        "© " + currentYear + " Meeting Scheduler";
+
+}
+    </script>
+
+
+</body>
+
+</html>

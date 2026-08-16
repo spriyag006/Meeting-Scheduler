@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <!-- Basic HTML Settings -->
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Create Meeting - Meeting Scheduler</title>
+
+
+    <!-- Bootstrap CSS -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+
+
+    <!-- Common CSS -->
+    <style>
+       /* ========================================
+   CREATE MEETING SECTION
+======================================== */
+
+.create-meeting-section {
+
+    min-height: calc(100vh - 130px);
+
+    display: flex;
+
+    align-items: center;
+
+    padding: 60px 0;
+
+    background: linear-gradient(
+        135deg,
+        #eef4ff,
+        #ffffff
+    );
+}
+
+
+/* ========================================
+   MEETING CARD
+======================================== */
+
+.meeting-card {
+
+    border: none;
+
+    border-radius: 18px;
+
+    background-color: #ffffff;
+
+    transition: 0.3s;
+}
+
+
+.meeting-card:hover {
+
+    transform: translateY(-5px);
+
+}
+
+
+/* ========================================
+   TITLE
+======================================== */
+
+.meeting-title {
+
+    font-size: 32px;
+
+    font-weight: 700;
+
+    color: #111827;
+
+}
+
+
+/* ========================================
+   FORM LABEL
+======================================== */
+
+.form-label {
+
+    font-weight: 600;
+
+    color: #374151;
+
+}
+
+
+/* ========================================
+   INPUTS
+======================================== */
+
+.form-control {
+
+    padding: 12px 15px;
+
+    border-radius: 8px;
+
+    border: 1px solid #d1d5db;
+
+}
+
+
+.form-control:focus {
+
+    border-color: #0d6efd;
+
+    box-shadow:
+        0 0 0 0.2rem
+        rgba(13, 110, 253, 0.15);
+
+}
+
+
+/* ========================================
+   TEXTAREA
+======================================== */
+
+textarea.form-control {
+
+    resize: vertical;
+
+    min-height: 120px;
+
+}
+
+
+/* ========================================
+   BUTTONS
+======================================== */
+
+.btn {
+
+    border-radius: 8px;
+
+    font-weight: 600;
+
+}
+
+
+.btn-primary {
+
+    padding: 12px 20px;
+
+}
+
+
+/* ========================================
+   ERROR MESSAGE
+======================================== */
+
+#errorMessage {
+
+    font-size: 14px;
+
+}
+
+
+/* ========================================
+   MOBILE
+======================================== */
+
+@media (max-width: 576px) {
+
+    .create-meeting-section {
+
+        padding: 40px 15px;
+
+    }
+
+
+    .meeting-title {
+
+        font-size: 27px;
+
+    }
+
+
+    .d-flex {
+
+        flex-direction: column;
+
+    }
+
+
+    .d-flex .btn {
+
+        width: 100%;
+
+    }
+
+} 
+    </style>
+
+    <!-- Create Meeting CSS -->
+    <link rel="stylesheet" href="css/create-meeting.css">
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================
+         NAVIGATION BAR
+    ========================== -->
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+
+        <div class="container">
+
+            <!-- Website Name -->
+
+            <a class="navbar-brand fw-bold"
+               href="dashboard.html">
+
+                Meeting Scheduler
+
+            </a>
+
+
+            <!-- Mobile Menu Button -->
+
+            <button
+                class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarMenu">
+
+                <span class="navbar-toggler-icon"></span>
+
+            </button>
+
+
+            <!-- Navigation Links -->
+
+            <div class="collapse navbar-collapse"
+                 id="navbarMenu">
+
+                <div class="ms-auto">
+
+                    <a href="dashboard.html"
+                       class="btn btn-outline-light me-2">
+
+                        Dashboard
+
+                    </a>
+
+                    <a href="view-meetings.html"
+                       class="btn btn-primary">
+
+                        My Meetings
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </nav>
+
+
+
+    <!-- =========================
+         CREATE MEETING SECTION
+    ========================== -->
+
+    <main>
+
+        <section class="create-meeting-section">
+
+            <div class="container">
+
+                <div class="row justify-content-center">
+
+                    <div class="col-md-8 col-lg-7">
+
+
+                        <!-- Create Meeting Card -->
+
+                        <div class="card meeting-card shadow">
+
+
+                            <div class="card-body p-4 p-md-5">
+
+
+                                <!-- Heading -->
+
+                                <div class="text-center mb-4">
+
+                                    <h1 class="meeting-title">
+
+                                        Create Meeting
+
+                                    </h1>
+
+                                    <p class="text-muted">
+
+                                        Schedule a new meeting.
+
+                                    </p>
+
+                                </div>
+
+
+
+                                <!-- Meeting Form -->
+
+                                <form id="meetingForm">
+
+                                    <!-- Meeting Title -->
+
+                                    <div class="mb-3">
+
+                                        <label
+                                            for="title"
+                                            class="form-label">
+
+                                            Meeting Title
+
+                                        </label>
+
+
+                                        <input
+                                            type="text"
+                                            id="title"
+                                            name="title"
+                                            class="form-control"
+                                            placeholder="Enter meeting title"
+                                            required>
+
+                                    </div>
+
+
+
+                                    <!-- Date and Time -->
+
+                                    <div class="row">
+
+
+                                        <!-- Date -->
+
+                                        <div class="col-md-6 mb-3">
+
+                                            <label
+                                                for="meeting_date"
+                                                class="form-label">
+
+                                                Meeting Date
+
+                                            </label>
+
+
+                                            <input
+                                                type="date"
+                                                id="meeting_date"
+                                                name="meeting_date"
+                                                class="form-control"
+                                                required>
+
+                                        </div>
+
+
+
+                                        <!-- Time -->
+
+                                        <div class="col-md-6 mb-3">
+
+                                            <label
+                                                for="meeting_time"
+                                                class="form-label">
+
+                                                Meeting Time
+
+                                            </label>
+
+
+                                            <input
+                                                type="time"
+                                                id="meeting_time"
+                                                name="meeting_time"
+                                                class="form-control"
+                                                required>
+
+                                        </div>
+
+                                    </div>
+
+
+
+                                    <!-- Description -->
+
+                                    <div class="mb-3">
+
+                                        <label
+                                            for="description"
+                                            class="form-label">
+
+                                            Description
+
+                                        </label>
+
+
+                                        <textarea
+                                            id="description"
+                                            name="description"
+                                            class="form-control"
+                                            rows="5"
+                                            placeholder="Enter meeting details...">
+                                        </textarea>
+
+                                    </div>
+
+
+
+                                    <!-- Location -->
+
+                                    <div class="mb-3">
+
+                                        <label
+                                            for="location"
+                                            class="form-label">
+
+                                            Location
+
+                                        </label>
+
+
+                                        <input
+                                            type="text"
+                                            id="location"
+                                            name="location"
+                                            class="form-control"
+                                            placeholder="Enter meeting location">
+
+                                    </div>
+
+
+
+                                    <!-- Error Message -->
+
+                                    <div
+                                        id="errorMessage"
+                                        class="alert alert-danger d-none">
+
+                                    </div>
+
+
+
+                                    <!-- Buttons -->
+
+                                    <div class="d-flex gap-2 mt-4">
+
+                                        <button
+                                            type="submit"
+                                            class="btn btn-primary flex-grow-1">
+
+                                            Create Meeting
+
+                                        </button>
+
+
+                                        <a
+                                            href="dashboard.html"
+                                            class="btn btn-secondary">
+
+                                            Cancel
+
+                                        </a>
+
+                                    </div>
+
+
+                                </form>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+
+    <!-- =========================
+         FOOTER
+    ========================== -->
+
+    <footer class="bg-dark text-white text-center py-3">
+
+        <p class="mb-0">
+
+            © 2026 Meeting Scheduler
+
+        </p>
+
+    </footer>
+
+    <script>
+
+// ========================================
+// CREATE MEETING FORM
+// ========================================
+
+const meetingForm =
+    document.getElementById("meetingForm");
+
+const errorMessage =
+    document.getElementById("errorMessage");
+
+
+// ========================================
+// FORM SUBMISSION
+// ========================================
+
+if (meetingForm) {
+
+    meetingForm.addEventListener(
+        "submit",
+        async function (event) {
+
+            // IMPORTANT:
+            // Stop normal HTML form submission
+            event.preventDefault();
+
+
+            // ========================================
+            // GET FORM VALUES
+            // ========================================
+
+            const title =
+                document.getElementById("title")
+                .value
+                .trim();
+
+
+            const meetingDate =
+                document.getElementById("meeting_date")
+                .value;
+
+
+            const meetingTime =
+                document.getElementById("meeting_time")
+                .value;
+
+
+            const description =
+                document.getElementById("description")
+                .value
+                .trim();
+
+
+            const location =
+                document.getElementById("location")
+                .value
+                .trim();
+
+
+            // ========================================
+            // CLEAR PREVIOUS ERROR
+            // ========================================
+
+            errorMessage.classList.add("d-none");
+
+            errorMessage.textContent = "";
+
+
+            // ========================================
+            // VALIDATE TITLE
+            // ========================================
+
+            if (title === "") {
+
+                showError(
+                    "Please enter the meeting title."
+                );
+
+                return;
+
+            }
+
+
+            if (title.length < 3) {
+
+                showError(
+                    "Meeting title must contain at least 3 characters."
+                );
+
+                return;
+
+            }
+
+
+            // ========================================
+            // VALIDATE DATE
+            // ========================================
+
+            if (meetingDate === "") {
+
+                showError(
+                    "Please select a meeting date."
+                );
+
+                return;
+
+            }
+
+
+            // Check date is not in the past
+
+            const today = new Date();
+
+            today.setHours(0, 0, 0, 0);
+
+
+            const selectedDate =
+                new Date(meetingDate);
+
+
+            if (selectedDate < today) {
+
+                showError(
+                    "Meeting date cannot be in the past."
+                );
+
+                return;
+
+            }
+
+
+            // ========================================
+            // VALIDATE TIME
+            // ========================================
+
+            if (meetingTime === "") {
+
+                showError(
+                    "Please select a meeting time."
+                );
+
+                return;
+
+            }
+
+
+            // ========================================
+            // VALIDATE DESCRIPTION
+            // ========================================
+
+            if (description === "") {
+
+                showError(
+                    "Please enter a meeting description."
+                );
+
+                return;
+
+            }
+
+
+            // ========================================
+            // VALIDATE LOCATION
+            // ========================================
+
+            if (location === "") {
+
+                showError(
+                    "Please enter the meeting location."
+                );
+
+                return;
+
+            }
+
+
+            // ========================================
+            // SEND DATA TO BACKEND
+            // ========================================
+
+
+            try {
+
+                // attach logged-in user id if available
+               const storedUser = localStorage.getItem("user");
+
+
+// Check whether user is logged in
+if (!storedUser) {
+
+    showError(
+        "Please login before creating a meeting."
+    );
+
+    return;
+
+}
+
+
+let userId;
+
+try {
+
+    const parsedUser = JSON.parse(storedUser);
+
+    userId = parsedUser.id || parsedUser._id;
+
+} catch (error) {
+
+    console.error("User data error:", error);
+
+    showError(
+        "Invalid login session. Please login again."
+    );
+
+    return;
+
+}
+
+
+// Make sure user ID exists
+if (!userId) {
+
+    showError(
+        "User information not found. Please login again."
+    );
+
+    return;
+
+}
+
+                const response = await fetch("/meetings", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        title: title,
+                        meetingDate: meetingDate,
+                        meetingTime: meetingTime,
+                        description: description,
+                        location: location,
+                        userId: userId
+                    })
+                });
+
+
+                // Convert backend response to JSON
+
+                const data =
+                    await response.json();
+
+
+                // ========================================
+                // SUCCESS
+                // ========================================
+
+                if (response.ok) {
+
+                    alert(
+                        data.message ||
+                        "Meeting created successfully!"
+                    );
+
+
+                    // Move to My Meetings
+
+                    window.location.href =
+                        "view-meetings.html";
+
+                }
+
+
+                // ========================================
+                // BACKEND ERROR
+                // ========================================
+
+                else {
+
+                    showError(
+                        data.message ||
+                        "Failed to create meeting."
+                    );
+
+                }
+
+            }
+
+
+            // ========================================
+            // SERVER CONNECTION ERROR
+            // ========================================
+
+            catch (error) {
+
+                console.error(
+                    "Create meeting error:",
+                    error
+                );
+
+
+                showError(
+                    "Unable to connect to the server."
+                );
+
+            }
+
+        }
+    );
+
+}
+
+
+// ========================================
+// SHOW ERROR MESSAGE
+// ========================================
+
+function showError(message) {
+
+    errorMessage.textContent =
+        message;
+
+    errorMessage.classList.remove(
+        "d-none"
+    );
+
+}
+
+</script>
+
+   
+    
+
+
+</body>
+
+</html>

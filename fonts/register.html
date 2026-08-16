@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <!-- Basic HTML Settings -->
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Register - Meeting Scheduler</title>
+    <style>
+        /* ========================================
+   REGISTER SECTION
+======================================== */
+
+.register-section {
+    min-height: calc(100vh - 130px);
+
+    display: flex;
+    align-items: center;
+
+    padding: 60px 0;
+
+    background: linear-gradient(
+        135deg,
+        #eef4ff,
+        #ffffff
+    );
+}
+
+
+/* ========================================
+   REGISTER CARD
+======================================== */
+
+.register-card {
+    border: none;
+    border-radius: 18px;
+
+    background-color: #ffffff;
+
+    transition: 0.3s;
+}
+
+
+.register-card:hover {
+    transform: translateY(-5px);
+}
+
+
+/* ========================================
+   REGISTER TITLE
+======================================== */
+
+.register-title {
+    font-size: 32px;
+    font-weight: 700;
+
+    color: #111827;
+}
+
+
+/* ========================================
+   FORM LABEL
+======================================== */
+
+.form-label {
+    font-weight: 600;
+
+    color: #374151;
+}
+
+
+/* ========================================
+   INPUT
+======================================== */
+
+.form-control {
+    padding: 12px 15px;
+
+    border-radius: 8px;
+
+    border: 1px solid #d1d5db;
+}
+
+
+.form-control:focus {
+    border-color: #0d6efd;
+
+    box-shadow:
+        0 0 0 0.2rem rgba(13, 110, 253, 0.15);
+}
+
+
+/* ========================================
+   REGISTER BUTTON
+======================================== */
+
+.register-btn {
+    padding: 12px;
+
+    font-size: 16px;
+
+    font-weight: 600;
+
+    border-radius: 8px;
+
+    transition: 0.3s;
+}
+
+
+.register-btn:hover {
+    transform: translateY(-2px);
+}
+
+
+/* ========================================
+   LOGIN LINK
+======================================== */
+
+.login-link {
+    text-decoration: none;
+
+    font-weight: 600;
+}
+
+
+.login-link:hover {
+    text-decoration: underline;
+}
+
+
+/* ========================================
+   ALERT MESSAGES
+======================================== */
+
+#errorMessage,
+#successMessage {
+    font-size: 14px;
+}
+
+
+/* ========================================
+   MOBILE
+======================================== */
+
+@media (max-width: 576px) {
+
+    .register-section {
+        padding: 40px 15px;
+    }
+
+    .register-title {
+        font-size: 27px;
+    }
+
+}
+</style>
+
+
+    <!-- Bootstrap CSS -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+
+
+    <!-- Common CSS -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- Register Page CSS -->
+    <link rel="stylesheet" href="css/register.css">
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================
+         NAVIGATION BAR
+    ========================== -->
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+
+        <div class="container">
+
+            <!-- Website Name -->
+
+            <a class="navbar-brand fw-bold"
+               href="index.html">
+
+                Meeting Scheduler
+
+            </a>
+
+
+            <!-- Mobile Menu Button -->
+
+            <button
+                class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarMenu">
+
+                <span class="navbar-toggler-icon"></span>
+
+            </button>
+
+
+            <!-- Navigation Links -->
+
+            <div class="collapse navbar-collapse"
+                 id="navbarMenu">
+
+                <div class="ms-auto">
+
+                    <a href="index.html"
+                       class="btn btn-outline-light me-2">
+
+                        Home
+
+                    </a>
+
+                    <a href="login.html"
+                       class="btn btn-primary">
+
+                        Login
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </nav>
+
+
+
+    <!-- =========================
+         REGISTER SECTION
+    ========================== -->
+
+    <main>
+
+        <section class="register-section">
+
+            <div class="container">
+
+                <div class="row justify-content-center">
+
+                    <div class="col-md-7 col-lg-5">
+
+
+                        <!-- Register Card -->
+
+                        <div class="card register-card shadow">
+
+
+                            <div class="card-body p-4 p-md-5">
+
+
+                                <!-- Heading -->
+
+                                <div class="text-center mb-4">
+
+                                    <h1 class="register-title">
+
+                                        Create Account
+
+                                    </h1>
+
+                                    <p class="text-muted">
+
+                                        Register to start scheduling
+                                        your meetings.
+
+                                    </p>
+
+                                </div>
+
+
+
+                                <!-- Register Form -->
+
+                                <form
+                                    id="registerForm"
+                                    action="/auth/register"
+                                    method="POST">
+
+
+                                    <!-- Name -->
+
+                                    <div class="mb-3">
+
+                                        <label
+                                            for="name"
+                                            class="form-label">
+
+                                            Full Name
+
+                                        </label>
+
+
+                                        <input
+                                            type="text"
+                                            id="name"
+                                            name="name"
+                                            class="form-control"
+                                            placeholder="Enter your full name"
+                                            required>
+
+                                    </div>
+
+
+
+                                    <!-- Email -->
+
+                                    <div class="mb-3">
+
+                                        <label
+                                            for="email"
+                                            class="form-label">
+
+                                            Email Address
+
+                                        </label>
+
+
+                                        <input
+                                            type="email"
+                                            id="email"
+                                            name="email"
+                                            class="form-control"
+                                            placeholder="Enter your email"
+                                            required>
+
+                                    </div>
+
+
+
+                                    <!-- Password -->
+
+                                    <div class="mb-3">
+
+                                        <label
+                                            for="password"
+                                            class="form-label">
+
+                                            Password
+
+                                        </label>
+
+
+                                        <input
+                                            type="password"
+                                            id="password"
+                                            name="password"
+                                            class="form-control"
+                                            placeholder="Enter password"
+                                            required>
+
+                                    </div>
+
+
+
+                                    <!-- Confirm Password -->
+
+                                    <div class="mb-3">
+
+                                        <label
+                                            for="confirmPassword"
+                                            class="form-label">
+
+                                            Confirm Password
+
+                                        </label>
+
+
+                                        <input
+                                            type="password"
+                                            id="confirmPassword"
+                                            name="confirmPassword"
+                                            class="form-control"
+                                            placeholder="Confirm password"
+                                            required>
+
+                                    </div>
+
+
+
+                                    <!-- Terms -->
+
+                                    <div class="form-check mb-3">
+
+                                        <input
+                                            class="form-check-input"
+                                            type="checkbox"
+                                            id="terms"
+                                            required>
+
+                                        <label
+                                            class="form-check-label"
+                                            for="terms">
+
+                                            I agree to the terms and
+                                            conditions.
+
+                                        </label>
+
+                                    </div>
+
+
+
+                                    <!-- Error Message -->
+
+                                    <div
+                                        id="errorMessage"
+                                        class="alert alert-danger d-none">
+
+                                    </div>
+
+
+
+                                    <!-- Success Message -->
+
+                                    <div
+                                        id="successMessage"
+                                        class="alert alert-success d-none">
+
+                                    </div>
+
+
+
+                                    <!-- Register Button -->
+
+                                    <button
+                                        type="submit"
+                                        class="btn btn-primary w-100 register-btn">
+
+                                        Create Account
+
+                                    </button>
+
+
+                                </form>
+
+
+
+                                <!-- Login Link -->
+
+                                <div class="text-center mt-4">
+
+                                    <p class="mb-0">
+
+                                        Already have an account?
+
+                                        <a
+                                            href="login.html"
+                                            class="login-link">
+
+                                            Login
+
+                                        </a>
+
+                                    </p>
+
+                                </div>
+
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+
+    <!-- =========================
+         FOOTER
+    ========================== -->
+
+    <footer class="bg-dark text-white text-center py-3">
+
+        <p class="mb-0">
+
+            © 2026 Meeting Scheduler
+
+        </p>
+
+    </footer>
+
+
+
+    <!-- =========================
+         BOOTSTRAP JAVASCRIPT
+    ========================== -->
+
+    
+
+
+    <!-- REGISTER JAVASCRIPT -->
+
+    <script>
+        // ========================================
+// REGISTER FORM
+// ========================================
+
+<script>
+
+// ========================================
+// REGISTER FORM
+// ========================================
+
+const registerForm =
+    document.getElementById("registerForm");
+
+const errorMessage =
+    document.getElementById("errorMessage");
+
+const successMessage =
+    document.getElementById("successMessage");
+
+
+// ========================================
+// FORM SUBMISSION
+// ========================================
+
+registerForm.addEventListener("submit", async function (event) {
+
+    // IMPORTANT:
+    // Stop normal form submission
+    event.preventDefault();
+
+
+    const name =
+        document.getElementById("name").value.trim();
+
+    const email =
+        document.getElementById("email").value.trim();
+
+    const password =
+        document.getElementById("password").value;
+
+    const confirmPassword =
+        document.getElementById("confirmPassword").value;
+
+    const terms =
+        document.getElementById("terms").checked;
+
+
+    // Clear previous messages
+
+    errorMessage.classList.add("d-none");
+    successMessage.classList.add("d-none");
+
+    errorMessage.textContent = "";
+    successMessage.textContent = "";
+
+
+    // ========================================
+    // VALIDATION
+    // ========================================
+
+    if (name === "") {
+
+        showError("Please enter your full name.");
+        return;
+
+    }
+
+
+    if (name.length < 3) {
+
+        showError(
+            "Name must contain at least 3 characters."
+        );
+
+        return;
+
+    }
+
+
+    if (email === "") {
+
+        showError(
+            "Please enter your email address."
+        );
+
+        return;
+
+    }
+
+
+    if (password === "") {
+
+        showError(
+            "Please enter a password."
+        );
+
+        return;
+
+    }
+
+
+    if (password.length < 6) {
+
+        showError(
+            "Password must contain at least 6 characters."
+        );
+
+        return;
+
+    }
+
+
+    if (confirmPassword === "") {
+
+        showError(
+            "Please confirm your password."
+        );
+
+        return;
+
+    }
+
+
+    if (password !== confirmPassword) {
+
+        showError(
+            "Passwords do not match."
+        );
+
+        return;
+
+    }
+
+
+    if (!terms) {
+
+        showError(
+            "Please accept the terms and conditions."
+        );
+
+        return;
+
+    }
+
+
+    // ========================================
+    // SEND DATA TO EXPRESS BACKEND
+    // ========================================
+
+    try {
+
+        const response = await fetch("/auth/register", {
+
+            method: "POST",
+
+            headers: {
+                "Content-Type": "application/json"
+            },
+
+            body: JSON.stringify({
+
+                name: name,
+                email: email,
+                password: password
+
+            })
+
+        });
+
+
+        // Convert backend response to JSON
+
+        const data = await response.json();
+
+
+        // ========================================
+        // SUCCESS
+        // ========================================
+
+        if (response.ok) {
+
+            successMessage.textContent =
+                data.message;
+
+            successMessage.classList.remove("d-none");
+
+
+            // Clear form
+
+            registerForm.reset();
+
+
+            // Go to login page after 1.5 seconds
+
+            setTimeout(function () {
+
+                window.location.href =
+                    "login.html";
+
+            }, 1500);
+
+        }
+
+
+        // ========================================
+        // ERROR FROM BACKEND
+        // ========================================
+
+        else {
+
+            showError(data.message);
+
+        }
+
+    }
+
+
+    // ========================================
+    // SERVER / NETWORK ERROR
+    // ========================================
+
+    catch (error) {
+
+        console.error(
+            "Registration error:",
+            error
+        );
+
+        showError(
+            "Unable to connect to the server."
+        );
+
+    }
+
+});
+
+
+// ========================================
+// SHOW ERROR
+// ========================================
+
+function showError(message) {
+
+    errorMessage.textContent = message;
+
+    errorMessage.classList.remove("d-none");
+
+}
+
+</script>
+    </script>
+
+
+</body>
+
+</html>
